@@ -1,0 +1,31 @@
+{% load cart_template_tags %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="{% url 'books:book-list' %}">Cloud Book Store</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse float-right" id="navbarSupportedContent" style="width:max-content; margin-left:750px;">
+    <ul class="navbar-nav mr-auto">
+    {% if request.user.is_authenticated %}
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'cart:order-summary' %}">
+        {{request.user|cart_item_count}}
+        <i class="fa fa-shopping-cart"></i>
+        </a>
+      </li>
+    {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'account_signup' %}">Signup</a>
+      </li>
+    {% endif %}
+      <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Account<i class="fa fa-user"></i></a><li>
+    </ul>
+  </div>
+</nav>

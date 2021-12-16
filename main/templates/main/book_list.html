@@ -1,0 +1,32 @@
+{% extends 'main_base.html' %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Available Books</li>
+    </ol>
+</nav>
+{% endblock breadcrumb %}
+
+{% block content %}
+<h3> View Available Books </h3>
+<div class="row display-flex-row justify-content-between">
+{% for book in queryset %}
+    <div class="card shadow-lg col-3 mr-1 mb-3 mt-2" style="width: 18rem;">
+        <img src="{{ book.cover.url }}" class="card-img-top" alt="..." height="350px">
+        <div class="card-body">
+            <h5 class="card-title">{{ book.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted"> {{ book.publication }} </h6>
+            <p class="card-text">
+            {% for author in book.authors.all %}
+                <span>{{ author }}</span>
+                {% if book.authors.count > 1 %} | {% endif %}
+            {% endfor %}
+            </p>
+            <a href="{{ book.get_absolute_url }}" class="card-link">{{ book }}</a>
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% endblock content %}
+
